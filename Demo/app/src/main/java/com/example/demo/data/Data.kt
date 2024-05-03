@@ -7,6 +7,7 @@ import com.example.demo.util.toBlob
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.firestore
 
 data class Category(
@@ -15,7 +16,7 @@ data class Category(
     var name: String = ""
 ) {
     // TODO(1): Additional members: [count], [toString()]
-
+    @get:Exclude
     var count: Int = 0
     override fun toString() = name
 }
@@ -29,7 +30,7 @@ data class Fruit(
     var photo: Blob = Blob.fromBytes(ByteArray(0))
 ) {
     // TODO(2): Additional members: [category]
-
+    @get:Exclude
     var category: Category = Category()
 }
 
@@ -62,9 +63,13 @@ fun RESTORE(ctx: Context) {
     )
 
     // TODO(3): Restore categories
-
+    categories.forEach{ CATEGORIES.document(it.id).set(it)}
 
     // TODO(4): Restore fruits (randomize price 0.01 - 9.99)
-
+    val range = 1..999
+    for (f in fruits){
+        f.price = range.random() / 100.0
+        FRUITS.document(f.id).set(f)
+    }
 
 }

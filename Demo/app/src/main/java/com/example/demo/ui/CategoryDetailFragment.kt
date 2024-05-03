@@ -41,13 +41,15 @@ class CategoryDetailFragment : Fragment() {
 
         // TODO(8): Get all fruits by categoryId
         //          Populate [count] and recycler view
-
+        val fruits = fruitVM.getAll(category.id)
+        fruits.forEach { it.category = category }
+        category.count = fruits.size
 
         binding.txtId.text = category.id
         binding.txtName.text = category.name
         binding.txtCount.text = "${category.count} Fruit(s)"
 
-
+        adapter.submitList(fruits)
 
         // -----------------------------------------------------------------------------------------
 

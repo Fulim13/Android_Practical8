@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.demo.data.Category
 import com.example.demo.data.CategoryVM
 import com.example.demo.data.FruitVM
 import com.example.demo.databinding.FragmentFruitDetailBinding
@@ -35,7 +36,7 @@ class FruitDetailFragment : Fragment() {
         }
 
         // TODO(10): Populate [category]
-
+        fruit.category = categoryVM.get(fruit.categoryId) ?: Category()
 
         binding.imgPhoto.setImageBlob(fruit.photo)
         binding.txtId.text = fruit.id

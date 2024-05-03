@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // TODO(7): Initialize view models (early data loading)
-
+        categoryVM.init()
+        fruitVM.init()
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

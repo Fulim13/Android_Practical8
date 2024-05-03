@@ -38,7 +38,7 @@ class CategoryListFragment : Fragment() {
             binding.txtCount.text = "${it.size} Record(s)"
 
             // TODO(6): Populate [count]
-
+            it.forEach{ it.count = fruitVM.getAll(it.id).size }
             adapter.submitList(it)
         }
 

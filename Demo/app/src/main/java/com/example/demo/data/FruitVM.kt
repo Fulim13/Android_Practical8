@@ -32,7 +32,7 @@ class FruitVM : ViewModel() {
     fun get(id: String) = getAll().find { it.id == id }
 
     // TODO(5): Get all fruits by categoryId
-    fun getAll(categoryId: String) = getAll()
+    fun getAll(categoryId: String) = getAll().filter { it.categoryId == categoryId }
 
     // ---------------------------------------------------------------------------------------------
 
@@ -64,13 +64,21 @@ class FruitVM : ViewModel() {
         var list = getAll()
 
         // TODO(12A): Search by name, filter by categoryId
-
+        list = list.filter {
+            it.name.contains(name, true) &&
+                    (it.categoryId == categoryId || categoryId == "")
+        }
 
         // TODO(12B): Sort by field
-
+        list = when (field) {
+            "Id" -> list.sortedBy { it.id }
+            "Name" -> list.sortedBy { it.name }
+            "Price" -> list.sortedBy { it.price }
+            else -> list
+        }
 
         // TODO(12C): Reverse (descending order)
-
+        if (reverse) list = list.reversed()
 
         resultLD.value = list
     }
